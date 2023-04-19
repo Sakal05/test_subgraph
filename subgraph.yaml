@@ -1,0 +1,36 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Voting
+    network: mumbai
+    source:
+      address: "0x6e3596d5739Df71eeD85d57AD9dc32E3d9cb9606"
+      abi: Voting
+      startBlock: 34451348
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - ProposalEvent
+        - TransferTokenForProposalRejection
+        - VoteEvent
+        - WinningProposalEvent
+        - claimIncentiveEvent
+      abis:
+        - name: Voting
+          file: ./abis/Voting.json
+      eventHandlers:
+        - event: ProposalEvent(indexed uint256,address,string,string,uint256)
+          handler: handleProposalEvent
+        - event: TransferTokenForProposalRejection(indexed uint256,address,uint256)
+          handler: handleTransferTokenForProposalRejection
+        - event: VoteEvent(indexed uint256,address,string,string)
+          handler: handleVoteEvent
+        - event: WinningProposalEvent(indexed uint256,bool,string)
+          handler: handleWinningProposalEvent
+        - event: claimIncentiveEvent(address,uint256)
+          handler: handleclaimIncentiveEvent
+      file: ./src/voting.ts

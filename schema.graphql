@@ -1,0 +1,51 @@
+type ProposalEvent @entity(immutable: true) {
+  id: Bytes!
+  Voting_id: BigInt! # uint256
+  owner: Bytes! # address
+  title: String! # string
+  description: String! # string
+  monthlyIncentive: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type TransferTokenForProposalRejection @entity(immutable: true) {
+  id: Bytes!
+  proposalId: BigInt! # uint256
+  voters: Bytes! # address
+  totalTokenTransferred: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type VoteEvent @entity(immutable: true) {
+  id: Bytes!
+  proposalId: BigInt! # uint256
+  voter: Bytes! # address
+  voteOption: String! # string
+  message: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type WinningProposalEvent @entity(immutable: true) {
+  id: Bytes!
+  proposalId: BigInt! # uint256
+  winningStatus: Boolean! # bool
+  message: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type claimIncentiveEvent @entity(immutable: true) {
+  id: Bytes!
+  receiver: Bytes! # address
+  tokenAmount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
